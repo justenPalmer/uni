@@ -11,6 +11,7 @@
 			var view = el.getAttribute('view');
 			if (el.parentNode) me._el['view.'+view] = el.parentNode.removeChild(el);
 		}
+		return done.pass();
 	};
 
 	me.act.render = function(pack,done){
@@ -42,7 +43,7 @@
 			}
 		}
 		var el = htmlToEl(tags.join(''));
-		return el;
+		return done.pass(el);
 	};
 
 	var htmlToEl = function(html){

@@ -2,7 +2,7 @@ var me = uni.ent = {};
 
 var entGet = function(world,mold,signature){
 	if (uni.type(mold) !== 'str') return uni.fail('ent: mold is not a string');
-	var fingerprint = (signature)? mold+'~'+signature: mold; // combine mold and signature into fingerprint
+	var fingerprint = (signature !== undefined && signature !== null)? mold+'~'+signature: mold; // combine mold and signature into fingerprint
 	if (world._ent[fingerprint]) return world._ent[fingerprint]; // if ent already exists in world return it
 
 	var ent = { // make new ent
@@ -23,7 +23,7 @@ var entGet = function(world,mold,signature){
 	};
 
 	ent.watch = function(watcher,behav,respon){
-		
+
 	};
 
 	return ent;

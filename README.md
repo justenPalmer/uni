@@ -16,6 +16,6 @@
 
 The primary concepts of uni:
 - ent (or entity): an individual with properties and behaviors
-- mold: ent behaviors are determined by their mold
+- mold: define ent behaviors (actions)
 - world: the container for ents
 

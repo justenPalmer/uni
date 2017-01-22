@@ -7,7 +7,7 @@ done (fun): defines a done to have pass and fail by default
 */
 me.done = function(done){
 	done = done || {};
-	if (!done.pass) done.pass = function(res){return res};
+	if (!done.pass) done.pass = function(res){console.log('done:',res);return res};
 	if (!done.fail) done.fail = function(e){uni.fail(e)};
 	return done;
 };

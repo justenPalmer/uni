@@ -128,40 +128,9 @@ me.morph = uni.morph = function(o){
 	return o;
 };
 
-/*
-done (fun): defines a done to have pass and fail by default
-	---done---
-*/
-me.done = uni.done = function(done){
-	done = done || {};
-	if (!done.pass) done.pass = function(){};
-	if (!done.fail) done.fail = function(e){uni.fail(e)};
-	return done;
-};
 
-/*
-fail (fun): 
-	val (str):
-*/
-me.fail = uni.fail = function(){
-	console.error.apply(this,arguments);
-};
 
-/*
-type (fun): retrieves a variable's type as a three letter string
-	val (any)
-*/
-me.type = uni.type = function(val){
-	if (val === undefined) return 'und';
-	if (val === null) return 'nul';
-	if (val === true || val === false) return 'bool';
-	var type = typeof val;
-	if (type == 'string') return 'str';
-	if (type == 'number') return 'num';
-	if (type == 'function') return 'fun';
-	if (Object.prototype.toString.call(val) == '[object Array]') return 'ary';
-	return 'obj';
-};
+
 
 /*
 loop (fun): asynchronous loop method that iterates many different formats

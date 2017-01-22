@@ -13,7 +13,7 @@ done (fun): defines a done to have pass and fail by default
 */
 me.done = function(done){
 	done = done || {};
-	if (!done.pass) done.pass = function(res){return res};
+	if (!done.pass) done.pass = function(res){console.log('done:',res);return res};
 	if (!done.fail) done.fail = function(e){uni.fail(e)};
 	return done;
 };
@@ -260,40 +260,9 @@ me.morph = uni.morph = function(o){
 	return o;
 };
 
-/*
-done (fun): defines a done to have pass and fail by default
-	---done---
-*/
-me.done = uni.done = function(done){
-	done = done || {};
-	if (!done.pass) done.pass = function(){};
-	if (!done.fail) done.fail = function(e){uni.fail(e)};
-	return done;
-};
 
-/*
-fail (fun): 
-	val (str):
-*/
-me.fail = uni.fail = function(){
-	console.error.apply(this,arguments);
-};
 
-/*
-type (fun): retrieves a variable's type as a three letter string
-	val (any)
-*/
-me.type = uni.type = function(val){
-	if (val === undefined) return 'und';
-	if (val === null) return 'nul';
-	if (val === true || val === false) return 'bool';
-	var type = typeof val;
-	if (type == 'string') return 'str';
-	if (type == 'number') return 'num';
-	if (type == 'function') return 'fun';
-	if (Object.prototype.toString.call(val) == '[object Array]') return 'ary';
-	return 'obj';
-};
+
 
 /*
 loop (fun): asynchronous loop method that iterates many different formats
@@ -441,15 +410,16 @@ var me = uni.ent = {};
 
 var entGet = function(world,mold,signature){
 	if (uni.type(mold) !== 'str') return uni.fail('ent: mold is not a string');
-	var identity = (signature)? mold+'~'+signature: mold; // combine mold and signature into identity
-	if (world._ent[identity]) return world._ent[identity]; // if ent already exists in world return it
+	var fingerprint = (signature !== undefined && signature !== null)? mold+'~'+signature: mold; // combine mold and signature into fingerprint
+	if (world._ent[fingerprint]) return world._ent[fingerprint]; // if ent already exists in world return it
 
 	var ent = { // make new ent
 		mold:mold,
 		signature:signature,
+		fingerprint:fingerprint,
 		world:world, // circular ref to world
 	};
-	world._ent[identity] = ent; // bring ent into world
+	world._ent[fingerprint] = ent; // bring ent into world
 
 	ent.act = function(act,pack,done){ // entity action
 		done = uni.done(done);
@@ -459,6 +429,11 @@ var entGet = function(world,mold,signature){
 		if (!m.act || !m.act[act]) return done.fail('ent: mold '+ent.mold+' act '+act+' not defined');
 		return m.act[act].apply(ent,[pack,done]); // do action, pass in the ent as this
 	};
+
+	ent.watch = function(watcher,behav,respon){
+
+	};
+
 	return ent;
 };
 
@@ -483,6 +458,9 @@ var me = uni.mold = function(type){
 		for (var i in uni._mold[t].act){
 			mold.act[i] = uni._mold[t].act[i];
 		}
+	};
+	mold.trigger = function(ent,event,pack){
+		//call callbacks bound to this ent
 	};
 	return mold;
 };

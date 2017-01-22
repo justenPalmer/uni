@@ -5,7 +5,7 @@
 	
 	me.act.get = function(pack,done){
 		var rec = {name:'bob'};
-		me.trigger(this,'get',rec);
+		//me.trigger(this,'get',rec);
 		return done.pass(rec);
 	};
 })();
