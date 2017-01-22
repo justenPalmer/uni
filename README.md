@@ -2,40 +2,20 @@
 
 ## INSTALLATION
 
+
+
 ## OBJECTIVES
 
-### Simplicity
-
-### Transparency
-
-### Flexibity
+- minimalism
+- transparency
+- flexibity
 
 
-##Terminology
 
-store
-view
+## CONCEPTS
 
-pattern
-entity
-
-## Entitys
-
-_pattern
-_path
-_type
-
-### Context (c)
-
-### Actions (a)
-
-Action type (str)
-
-Action data (any)
-
-Action callbacks (obj)
-	done
-	fail
-
-Root actions - start with '/'
+The primary concepts of uni:
+- ent (or entity): an individual with properties and behaviors
+- mold: ent behaviors are determined by their mold
+- world: the container for ents
 

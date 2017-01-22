@@ -1,6 +1,6 @@
 # Ents
 
-Entities (or ents) are instances of the molds with properties and behaviors. Think about them as individuals with characteristics unique to themselves. Each ent has a mold and signature which together comprise the individual's unique fingerprint. Only one ent may exist with a given fingerprint in each world.
+Entities (or ents) are instances of the molds with properties and behaviors. Think about them as individuals with characteristics and behaviors. Each ent has a mold and signature which together comprise the individual's unique fingerprint. Only one ent may exist with a given fingerprint in each world.
 
 ## Make Ent
 

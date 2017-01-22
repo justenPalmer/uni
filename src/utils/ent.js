@@ -23,7 +23,7 @@ var entGet = function(world,mold,signature){
 	};
 
 	ent.watch = function(watcher,behav,respon){
-
+		
 	};
 
 	return ent;
