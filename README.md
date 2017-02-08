@@ -31,6 +31,7 @@ The concepts of uni:
 - [molds](docs/molds.md): Molds define the actions that ents can perform. Each ent takes on the actions of one mold.
 - [actions](docs/actions.md) (or acts): Ents perform actions to do get things done. They are the primary functionality in Uni.
 - [signals](docs/signals.md): Signals are events triggered by the ent - other ents can watch for signals.
+- [tools](docs/tools.md): Tools are convenience functions used to handle common Uni occurances such as asynchronous actions, loops, and data typing. 
 
 ## TUTORIAL
 

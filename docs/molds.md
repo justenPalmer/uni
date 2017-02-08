@@ -1,8 +1,8 @@
-# Molds
+# uni molds
 
 Molds give the entities form. They define the actions that entities may perform. They also define the signals entities may trigger.
 
-## Define Mold
+## DEFINE
 
 ``` javascript
 

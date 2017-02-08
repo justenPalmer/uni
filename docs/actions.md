@@ -1,10 +1,10 @@
-# Actions
+# uni actions
 
 Actions are defined by molds and performed by ents. All public functionality on ents are actions. Actions have a standard signature which makes their definition and use trivial.
 
 Actions are similar to public methods in OOP languages.
 
-## Define
+## DEFINE
 
 Define an action on a mold. An example of an action definition is below:
 
@@ -14,11 +14,12 @@ mold.act('say',function(pack,done){
 	var ent = this;
 	var msg = new SpeechSynthesisUtterance(pack);
 	window.speechSynthesis.speak(msg);
+	return done.pass(msg);
 });
 
 ```
 
-## Arguments
+## ARGUMENTS
 
 - name (str): A string which acts as a handle to call the action. Action names should be unique within a mold.
 - func (fun): The function that will be executed when the action is called. This function defines all the functionality of the action. It has two arguments defined below.

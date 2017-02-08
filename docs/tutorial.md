@@ -1,6 +1,6 @@
-# Tutorial
+# uni tutorial
 
-## Setup
+## SETUP
 
 First create a new directory for your new project.
 
