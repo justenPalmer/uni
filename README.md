@@ -9,8 +9,7 @@ Uni is a library which provides a scaffold for data structure on which light or 
 - Unified method signatures - No more looking up method definitions and rewriting them. All methods (actions) in Uni have the exact same signature.
 - No prototype chains - Uni speeds up applications by not utilizing prototype chains that are costly for property lookups.
 - No complex language - Uni uses only basic javascript syntax; allowing beginners to jump in and veterans to reduce cognitive load.
-- Tiny - Uni is less than 200 lines of code. It does not burden your application with unnecessary weight.
-- Transparent -
+- Tiny and transparent - Uni is less than 200 lines of code. It does not burden your application with unnecessary weight and should be easy for an intermediate coder to read and fully understand.
 
 ## OBJECTIVES
 
@@ -21,7 +20,7 @@ The objective of Uni is to be easy to learn with concepts that can be taught to 
 To bring Uni into your project, simply copy the file [uni.js](dist/uni.js), paste it into your project, and include the script into the body of your html file.
 
 ``` html
-	<script type="text/javascript" rel=""></script>
+	<script src="uni.js" type="text/javascript"></script>
 ```
 
 ## CONCEPTS
