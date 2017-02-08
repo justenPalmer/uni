@@ -1,6 +1,6 @@
-# uni actions
+# uni actions (acts)
 
-Actions are defined by molds and performed by ents. All public functionality on ents are actions. Actions have a standard signature which makes their definition and use trivial.
+Actions are defined by molds and performed by entities. All public functionality on entities are actions. Actions have a standard signature which makes their definition and use trivial.
 
 Actions are similar to public methods in OOP languages.
 

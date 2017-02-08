@@ -1,41 +1,47 @@
-# uni ents
+# uni entities (ents)
 
-Entities (or ents) are instances of the molds with properties and behaviors. Think about them as individuals with characteristics and behaviors. Each ent has a mold and signature which together comprise the individual's unique fingerprint. Only one ent may exist with a given fingerprint in each world.
+Entities (or ents) are instances of the molds with properties and methods. Think about them as individuals with characteristics and behaviors. Each entity has a mold and signature which together comprise the individual's unique fingerprint. Only one ent may exist with a given fingerprint in each world.
 
-## MAKE
+## GET
 
-Define and retrieve an ent with the following:
+Get entities with the following code:
 
 ``` javascript
-var meep = world.ent('meep'); // gets the ent with mold 'meep' and store it into the var meep
-var meep1 = world.ent('meep',1); // gets the ent with signature 1 and fingerprint 'meep~1'
+
+var e1 = world.ent('meep'); // gets the ent with mold 'meep' and store it into the var meep
+var e2 = world.ent('meep',1); // gets the ent with signature 1 and fingerprint 'meep~1'
+
 ```
 
+The first entity `e1` is defined as being from the mold `meep`. It has no signature. The second entity `e2` is also from the mold `meep`, but has a signature of `1` thus making it a different entity from `e1`.
+
 ### parameters
-- mold (str): behaviors for this ent are taken from this mold
-- signature (num or str): identifier for this ent, only one ent may exist for each mold/signature combination
+- `mold` (str): The mold defines the type of entity to create. When instantiated, the entity is associated with the mold of the same name. Then actions performed by that entity will be defined by the named mold.
+- `signature` (num or str): Identifier for this ent, only one ent may exist for each mold/signature combination. Use the signature to create multiple unique entities from a single mold.
 
 ### return
- - ent (obj): an object of the ent properties
-
-The ent object has the following properties and methods
+ - `ent` (obj): The ent object contains all properties and methods attached to the entity.
 
 ## PROPERTIES
 
 These are properties that are defined on the ent object:
 
-- mold (str): the mold of the ent
-- signature (num or str): identifier for this ent
-- fingerprint (str): the mold/signature combination that defines this ent
-- world (obj): this is a circular reference to the world that the ent was created in
+- `mold` (str): This identifies the mold which defines the entity's actions.
+- `signature` (num or str): Identifier for the entity.
+- `fingerprint` (str): The mold/signature combination that defines this ent
+- `world` (obj): A circular reference to the world that the entity is a part of.
 
-## methods
+## METHODS
 
 These are the methods of the ent object:
 
-- act (fun): calls an action defined by the mold of the ent
-- watch (fun): binds
+- `act` (fun): Calls an action defined by the mold of the ent.
+- `watch` (fun): Allows another entity or script to bind to the signals emitted by this entity.
 
-## actions
+## MOLD
 
-Each ent has a set of behaviors (actions) defined by its mold.
+Define entity actions inside of molds. To learn how to define a mold, read [actions](docs/molds.md).
+
+## ACTIONS
+
+Each ent has a set of actions defined by its mold. To learn how to define and use actions, check out [actions](docs/actions.md).
