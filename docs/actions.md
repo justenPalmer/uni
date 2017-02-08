@@ -40,4 +40,4 @@ All actions should respond to their caller with either a pass or fail. Each acti
 
 ### func this (ent)
 
-The this object within an action func is the ent calling the action. The ent will have all data properties attached to it. It will also contain a reference to the world the ent is inside of.
+The `this` object within an action func is the ent calling the action. The ent will have all data properties attached to it. It will also contain a reference to the world the ent is inside of.
