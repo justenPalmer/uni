@@ -20,7 +20,7 @@ var meep1 = world.ent('meep',1); // gets the ent with signature 1 and fingerprin
 
 The ent object has the following properties and methods
 
-## Properties
+## PROPERTIES
 
 These are properties that are defined on the ent object:
 
