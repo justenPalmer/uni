@@ -26,7 +26,6 @@ var build = function(a){
 		output += '})();\n';
 		var crawl = {
 			dir:dirRoot+'src/utils/',
-			order:['tools.js'],
 			file:function(f,done){
 				util.getFile({file:f},{
 					fail:ch.fail,

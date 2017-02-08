@@ -1,5 +1,5 @@
 var me = {};
-uni.world = function(){
+uni.world = me.world = function(){
 	var world = {};
 	uni.ent.fill(world);
 	return world;

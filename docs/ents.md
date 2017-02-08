@@ -34,7 +34,7 @@ These are properties that are defined on the ent object:
 These are the methods of the ent object:
 
 - act (fun): calls an action defined by the mold of the ent
-- bind || watch (fun): binds
+- watch (fun): binds
 
 ## Actions
 

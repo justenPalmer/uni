@@ -2,8 +2,10 @@
 	var mold = 'view';
 	var me = uni.mold(mold);
 
-	me.act.init = function(pack,done){
+	me.act('init',function(pack,done){
 		me._el = {};
+		//TODO: import views
+
 		// detach views from dom and store them
 		var els = document.querySelectorAll('[view]');
 		for (var i=0,len=els.length;i<len;i++){
@@ -12,9 +14,9 @@
 			if (el.parentNode) me._el['view.'+view] = el.parentNode.removeChild(el);
 		}
 		return done.pass();
-	};
+	});
 
-	me.act.render = function(pack,done){
+	me.act('render',function(pack,done){
 		pack = pack || {};
 		pack.tpl = pack.tpl;
 		if (!pack.tpl && pack.view) pack.tpl = me._el[pack.view].outerHTML;
@@ -44,7 +46,7 @@
 		}
 		var el = htmlToEl(tags.join(''));
 		return done.pass(el);
-	};
+	});
 
 	var htmlToEl = function(html){
 		var wrapper = document.createElement('div');

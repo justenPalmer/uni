@@ -1,13 +1,13 @@
-var me = {};
-window.uni = me; // assign uni namespace
+var uni = {};
+window.uni = uni; // assign uni namespace
 
 /*
 done (fun): defines a done to have pass and fail by default
 	---done---
 */
-me.done = function(done){
+uni.done = function(done){
 	done = done || {};
-	if (!done.pass) done.pass = function(res){console.log('done:',res);return res};
+	if (!done.pass) done.pass = function(res){return res};
 	if (!done.fail) done.fail = function(e){uni.fail(e)};
 	return done;
 };
@@ -16,17 +16,17 @@ me.done = function(done){
 fail (fun): 
 	val (str):
 */
-me.fail = function(){
-	console.error.apply(this,arguments);
+uni.fail = function(){
+	console.warn.apply(this,arguments);
 };
 
 /*
-type (fun): retrieves a variable's type as a three letter string
+type (fun): retrieves a variable's type as a shortened string
 	val (any)
 */
-me.type = function(val){
+uni.type = function(val){
 	if (val === undefined) return 'und';
-	if (val === null) return 'nul';
+	if (val === null) return 'null';
 	if (val === true || val === false) return 'bool';
 	var type = typeof val;
 	if (type == 'string') return 'str';
@@ -39,86 +39,122 @@ me.type = function(val){
 /*
 ch (fun): chain
 	a (fun): first function to execute in the ch
-	return (obj): chainable with done, loop, and fail
-		[done] (fun): done calls the done ch method in the queue
-		[loop] (fun): loop calls the current ch method in the queue, again
-		[fail] (fun): fail calls the done fail method in the ch
-
+	return (obj): chainable with pass, loop, and fail
+		[pass] (fun): pass calls the pass ch method in the queue
+		[fail] (fun): fail calls the pass fail method in the ch
 */
-me.ch = uni.ch = function(a){
+uni.ch = function(first){
 	var inc = 0;
-	var queue = [{ch:a}]; //build queue with json object
-
-	var done = function(res){
-		if (this.called) return; //prevents done from being called twice
+	var queue = [{pass:first}]; //build queue with json object
+	var chPass = function(res){
+		if (this.called) return; //prevents pass from being called twice
 		while(inc<queue.length-1 && !this.called){
 			inc++;
-			if (queue[inc].ch){
-				if (typeof queue[inc].ch == 'function'){
+			if (queue[inc].pass){
+				if (typeof queue[inc].pass == 'function'){
 					//if (res === undefined) res = {};
-					queue[inc].ch(res,{done:done,loop:loop,fail:failCb});
+					queue[inc].pass(res,{pass:chPass,fail:chFail});
 				}
 				this.called = true;
 			}
 		}
 	};
-
-	var loop = function(res){
-		if (this.called) return; //prevents loop from being called twice
-		while(inc<queue.length && !this.called){
-			if (queue[inc].ch){
-				if (typeof queue[inc].ch == 'function'){
-					queue[inc].ch(res,{done:done,loop:loop,fail:failCb});
-				}
-				this.called = true;
-			}
-			else {
-				inc++;
-			}
-		}
-	};
-
-	var failCb = function(res){
-		if (this.called) return; //prevents done from being called twice
+	var chFail = function(res){
+		if (this.called) return; //prevents pass from being called twice
 		while(inc<queue.length-1 && !this.called){
 			inc++;
 			if (queue[inc].fail){
 				if (typeof queue[inc].fail == 'function'){
-					queue[inc].fail(res,{done:done,loop:loop,fail:failCb});
+					queue[inc].fail(res,{pass:chPass,fail:chFail});
 				}
 				this.called = true;
 			}
 		}
 	};
-	setTimeout(function(){
-		a({},{
-			done:done,
-			loop:loop,
-			fail:failCb
+	var ch = function(){
+		first({},{
+			pass:chPass,
+			fail:chFail
 		});
-	},1);
-	var ch = function(b){
-		queue.push({ch:b});
+	};
+	setTimeout(ch,1);
+	var pass = function(b){
+		queue.push({pass:b});
 		return this;
 	};
 	var fail = function(b){
 		queue.push({fail:b});
 		return this;
 	};
-	var cbCb = function(b){
+	var done = function(b){
 		for (var i in b){
-			if (typeof b[i] == 'function' && i=='done' || i=='fail'){
-				var bObj = {};
-				if (i=='done') bObj.ch = b.done; //oops
-				else bObj[i] = b[i];
-				queue.push(bObj);
+			if (typeof b[i] == 'function' && i == 'pass' || i == 'fail'){
+				var next = {};
+				if (i == 'pass') next.pass = b.pass;
+				else next[i] = b[i];
+				queue.push(next);
 			}
 		}
 		return this;
 	};
 	return {
-		ch:ch,
+		pass:pass,
 		fail:fail,
-		cb:cbCb
+		done:done
+	}
+};
+
+//TODO: make loop work with done & pass
+
+/*
+loop (fun): asynchronous loop method that iterates many different formats
+	o (ary or obj): loop will iterate through each element in ary
+	loop (fun)
+		---obj---
+		i (num): current iteration i
+		[prop] (str): only defined if an obj is passed into loop
+		loop (fun): call this to start the next iteration of loop
+	done (fun)
+	a (obj): status object
+*/
+uni.loop = function(o,loop,done,a){
+	a = a || {};
+	var type = uni.type(o);
+	var cond = false, prop;
+	if (a.i === undefined) a.i=0;
+	var check = function(){
+		if (cond && loop){
+			var nextI = a.i+1;
+			loop({
+				i:a.i,
+				prop:prop,
+				next:function(){
+					a.i = nextI;
+					me.loop(o,loop,done,a);
+				}
+			});
+			return;
+		}
+		if (done) done();
+	}
+	if (type == 'ary') { //is an array
+		if (!a.len) a.len=o.length;
+		cond = a.i < a.len;
+		check();
+	}
+	else if (type == 'obj'){
+		var i=0;
+		for (var p in o) {
+			if (i==a.i){
+				prop = p;
+				break;
+			}
+			i++;
+		}
+		cond = (prop)? true: false;
+		check();
+	}
+	else {
+		if (done) done();
 	}
 };

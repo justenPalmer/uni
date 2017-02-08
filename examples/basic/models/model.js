@@ -1,10 +1,16 @@
 (function(){
-	var mold = 'model';
-	var me = uni.mold(mold);
+	var M = 'model';
+	var mold = uni.mold(M);
 
-	me.act.init = function(pack,done){
+	mold.act('validate',function(pack,done){
 		return done.pass();
-	};
+	});
+
+	mold.act('api',function(pack,done){
+		uni.ch(function(d,ch){
+
+		});
+	});
 
 
 })();

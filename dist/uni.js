@@ -4,16 +4,16 @@
 */
 'use strict';
 (function(){
-var me = {};
-window.uni = me; // assign uni namespace
+var uni = {};
+window.uni = uni; // assign uni namespace
 
 /*
 done (fun): defines a done to have pass and fail by default
 	---done---
 */
-me.done = function(done){
+uni.done = function(done){
 	done = done || {};
-	if (!done.pass) done.pass = function(res){console.log('done:',res);return res};
+	if (!done.pass) done.pass = function(res){return res};
 	if (!done.fail) done.fail = function(e){uni.fail(e)};
 	return done;
 };
@@ -22,17 +22,17 @@ me.done = function(done){
 fail (fun): 
 	val (str):
 */
-me.fail = function(){
-	console.error.apply(this,arguments);
+uni.fail = function(){
+	console.warn.apply(this,arguments);
 };
 
 /*
-type (fun): retrieves a variable's type as a three letter string
+type (fun): retrieves a variable's type as a shortened string
 	val (any)
 */
-me.type = function(val){
+uni.type = function(val){
 	if (val === undefined) return 'und';
-	if (val === null) return 'nul';
+	if (val === null) return 'null';
 	if (val === true || val === false) return 'bool';
 	var type = typeof val;
 	if (type == 'string') return 'str';
@@ -45,224 +45,72 @@ me.type = function(val){
 /*
 ch (fun): chain
 	a (fun): first function to execute in the ch
-	return (obj): chainable with done, loop, and fail
-		[done] (fun): done calls the done ch method in the queue
-		[loop] (fun): loop calls the current ch method in the queue, again
-		[fail] (fun): fail calls the done fail method in the ch
-
+	return (obj): chainable with pass, loop, and fail
+		[pass] (fun): pass calls the pass ch method in the queue
+		[fail] (fun): fail calls the pass fail method in the ch
 */
-me.ch = uni.ch = function(a){
+uni.ch = function(first){
 	var inc = 0;
-	var queue = [{ch:a}]; //build queue with json object
-
-	var done = function(res){
-		if (this.called) return; //prevents done from being called twice
+	var queue = [{pass:first}]; //build queue with json object
+	var chPass = function(res){
+		if (this.called) return; //prevents pass from being called twice
 		while(inc<queue.length-1 && !this.called){
 			inc++;
-			if (queue[inc].ch){
-				if (typeof queue[inc].ch == 'function'){
+			if (queue[inc].pass){
+				if (typeof queue[inc].pass == 'function'){
 					//if (res === undefined) res = {};
-					queue[inc].ch(res,{done:done,loop:loop,fail:failCb});
+					queue[inc].pass(res,{pass:chPass,fail:chFail});
 				}
 				this.called = true;
 			}
 		}
 	};
-
-	var loop = function(res){
-		if (this.called) return; //prevents loop from being called twice
-		while(inc<queue.length && !this.called){
-			if (queue[inc].ch){
-				if (typeof queue[inc].ch == 'function'){
-					queue[inc].ch(res,{done:done,loop:loop,fail:failCb});
-				}
-				this.called = true;
-			}
-			else {
-				inc++;
-			}
-		}
-	};
-
-	var failCb = function(res){
-		if (this.called) return; //prevents done from being called twice
+	var chFail = function(res){
+		if (this.called) return; //prevents pass from being called twice
 		while(inc<queue.length-1 && !this.called){
 			inc++;
 			if (queue[inc].fail){
 				if (typeof queue[inc].fail == 'function'){
-					queue[inc].fail(res,{done:done,loop:loop,fail:failCb});
+					queue[inc].fail(res,{pass:chPass,fail:chFail});
 				}
 				this.called = true;
 			}
 		}
 	};
-	setTimeout(function(){
-		a({},{
-			done:done,
-			loop:loop,
-			fail:failCb
+	var ch = function(){
+		first({},{
+			pass:chPass,
+			fail:chFail
 		});
-	},1);
-	var ch = function(b){
-		queue.push({ch:b});
+	};
+	setTimeout(ch,1);
+	var pass = function(b){
+		queue.push({pass:b});
 		return this;
 	};
 	var fail = function(b){
 		queue.push({fail:b});
 		return this;
 	};
-	var cbCb = function(b){
+	var done = function(b){
 		for (var i in b){
-			if (typeof b[i] == 'function' && i=='done' || i=='fail'){
-				var bObj = {};
-				if (i=='done') bObj.ch = b.done; //oops
-				else bObj[i] = b[i];
-				queue.push(bObj);
+			if (typeof b[i] == 'function' && i == 'pass' || i == 'fail'){
+				var next = {};
+				if (i == 'pass') next.pass = b.pass;
+				else next[i] = b[i];
+				queue.push(next);
 			}
 		}
 		return this;
 	};
 	return {
-		ch:ch,
+		pass:pass,
 		fail:fail,
-		cb:cbCb
+		done:done
 	}
 };
-})();
-(function(){
-var me = {};
-uni.tools = me;
 
-/*
-morph (fun): morph manipulates objects in a number of different ways
-	o (obj, str, or ary)
-	---a---
-	[thaw] (str): creates the target obj from a string
-	[unweb] (str): convert query format to obj
-	[clone] (bool): if true, creates a shallow copy of the obj
-	[merge] (obj): merges this object into the target, target properties are overwritten
-	[shrink] (str or ary): removes attributes specified by shrink
-	[separate] (ary): removes all attributes NOT in the ary
-	[sort] (bool): puts object keys in order
-	[web] (bool): turns the object into a query string
-	[freeze] (bool): turns object into a string
-*/
-me.morph = uni.morph = function(o){
-	var type = uni.type(o);
-	if (type == 'obj'){
-		for (var i=1,len=arguments.length;i<len;i++){
-			var rules = arguments[i];
-			if (rules.clone){
-				var t = {};
-				for (var attr in o) {t[attr] = o[attr];}
-				o = t;
-			}
-			if (rules.merge) for (var attr in rules.merge){o[attr] = rules.merge[attr];}
-			if (rules.freeze){
-				try {
-					var str = JSON.stringify(o);
-				} catch(e){
-					return ''
-				}
-				return str;
-			}
-			if (rules.shrink){
-				if (rules.shrink instanceof Array) {
-					for (var i=0,len=rules.shrink.length;i<len;i++){
-						if (o[rules.shrink[i]]) delete o[rules.shrink[i]];
-					}
-				}
-				else if (typeof rules.shrink == 'string'){
-					if (o[rules.shrink]) delete o[rules.shrink];
-				}
-			}
-			if (rules.separate){
-				for (var i in o){
-					if (rules.separate.indexOf(i) === -1) {
-						delete o[i];
-					}
-				}
-			}
-			if (rules.sort){
-				var sort = [];
-				for (var i in o){
-					sort.push(i);
-				}
-				sort.sort();
-				var sorted = {};
-				for (var i=0,len=sort.length;i<len;i++){
-					sorted[sort[i]] = o[sort[i]];
-				}
-				o = sorted;
-			}
-			if (rules.web){
-				var str='',first=true;
-				for (var i in o){
-					if (!first) str += '&';
-					if (typeof o[i] == 'object'){
-						str += i+'='+encodeURIComponent(JSON.stringify(o[i]));
-					}
-					else str += i+'='+encodeURIComponent(o[i]);
-					first = false;
-				}
-				//if (str != '') str = '?'+str;
-				return str;
-			}
-			
-		}
-		return o;
-	}
-	if (type == 'str'){
-		for (var i=1,len=arguments.length;i<len;i++){
-			var rules = arguments[i];
-			if (rules.unweb){
-				o = o.replace(/\?/, '');
-				var ary = o.split('&');
-				o = {};
-				for (var i=0,len=ary.length;i<len;i++){
-					var v = ary[i].split('=');
-					try {
-						o[v[0]] = JSON.parse(decodeURIComponent(v[1]));
-					}
-					catch(e){
-						o[v[0]] = decodeURIComponent(v[1]);
-					}
-				}
-				return o;
-			}
-			if (rules.thaw) {
-				try {	
-					o = JSON.parse(o);
-				} catch(e){
-					uni.fail('morph thaw fail:',e);
-				}
-				return o;
-			}
-			if (rules.freeze) {
-				return o;
-			}
-		}
-	}
-	if (type == 'ary'){
-		for (var i=1,len=arguments.length;i<len;i++){
-			var rules = arguments[i];
-			if (rules.freeze){
-				try {
-					var str = JSON.stringify(o);
-				} catch(e){
-					uni.fail('morph freeze fail:',e);
-					return o;
-				}
-				return str;
-			}
-		}
-	}
-	return o;
-};
-
-
-
-
+//TODO: make loop work with done & pass
 
 /*
 loop (fun): asynchronous loop method that iterates many different formats
@@ -275,7 +123,7 @@ loop (fun): asynchronous loop method that iterates many different formats
 	done (fun)
 	a (obj): status object
 */
-me.loop = uni.loop = function(o,loop,done,a){
+uni.loop = function(o,loop,done,a){
 	a = a || {};
 	var type = uni.type(o);
 	var cond = false, prop;
@@ -316,94 +164,6 @@ me.loop = uni.loop = function(o,loop,done,a){
 		if (done) done();
 	}
 };
-
-/*
-ch (fun): chain
-	a (fun): first function to execute in the ch
-	return (obj): chainable with done, loop, and fail
-		[done] (fun): done calls the done ch method in the queue
-		[loop] (fun): loop calls the current ch method in the queue, again
-		[fail] (fun): fail calls the done fail method in the ch
-
-*/
-me.ch = uni.ch = function(a){
-	var inc = 0;
-	var queue = [{ch:a}]; //build queue with json object
-
-	var done = function(res){
-		if (this.called) return; //prevents done from being called twice
-		while(inc<queue.length-1 && !this.called){
-			inc++;
-			if (queue[inc].ch){
-				if (typeof queue[inc].ch == 'function'){
-					//if (res === undefined) res = {};
-					queue[inc].ch(res,{done:done,loop:loop,fail:failCb});
-				}
-				this.called = true;
-			}
-		}
-	};
-
-	var loop = function(res){
-		if (this.called) return; //prevents loop from being called twice
-		while(inc<queue.length && !this.called){
-			if (queue[inc].ch){
-				if (typeof queue[inc].ch == 'function'){
-					queue[inc].ch(res,{done:done,loop:loop,fail:failCb});
-				}
-				this.called = true;
-			}
-			else {
-				inc++;
-			}
-		}
-	};
-
-	var failCb = function(res){
-		if (this.called) return; //prevents done from being called twice
-		while(inc<queue.length-1 && !this.called){
-			inc++;
-			if (queue[inc].fail){
-				if (typeof queue[inc].fail == 'function'){
-					queue[inc].fail(res,{done:done,loop:loop,fail:failCb});
-				}
-				this.called = true;
-			}
-		}
-	};
-	setTimeout(function(){
-		a({},{
-			done:done,
-			loop:loop,
-			fail:failCb
-		});
-	},1);
-	var ch = function(b){
-		queue.push({ch:b});
-		return this;
-	};
-	var fail = function(b){
-		queue.push({fail:b});
-		return this;
-	};
-	var cbCb = function(b){
-		for (var i in b){
-			if (typeof b[i] == 'function' && i=='done' || i=='fail'){
-				var bObj = {};
-				if (i=='done') bObj.ch = b.done; //oops
-				else bObj[i] = b[i];
-				queue.push(bObj);
-			}
-		}
-		return this;
-	};
-	return {
-		ch:ch,
-		fail:fail,
-		cb:cbCb
-	}
-};
-
 })();
 (function(){
 var me = uni.ent = {};
@@ -421,17 +181,61 @@ var entGet = function(world,mold,signature){
 	};
 	world._ent[fingerprint] = ent; // bring ent into world
 
+	/*
+	act (fun):
+		act (str): action name to do
+		pack (any): data for action
+		done (obj):
+			pass (fun)
+			fail (fun)
+	*/
 	ent.act = function(act,pack,done){ // entity action
 		done = uni.done(done);
 		if (uni.type(act) !== 'str') return done.fail('ent: act is not a string');
 		if (uni._mold[ent.mold] === undefined) return done.fail('ent: mold '+ent.mold+' not defined');
 		var m = uni._mold[ent.mold];
-		if (!m.act || !m.act[act]) return done.fail('ent: mold '+ent.mold+' act '+act+' not defined');
-		return m.act[act].apply(ent,[pack,done]); // do action, pass in the ent as this
+		if (m._act && m._act[act]) return m._act[act].apply(ent,[pack,done]); // do action, pass in the ent as this
+		//call action on parent molds
+		if (m._parents){
+			for (var i=0,len=m._parents.length;i<len;i++){
+				var par = m._parents[i];
+				if (par._act[act]) return par._act[act].apply(ent,[pack,done]);
+			}
+		}
+		return done.fail('ent: mold '+ent.mold+' action '+act+' not defined');
 	};
 
-	ent.watch = function(watcher,behav,respon){
+	/*
+	pact (fun): parent action
+		par (str): parent mold str
+		act (str): action name to do
+		pack (any): data for action
+		done (obj):
+			pass (fun)
+			fail (fun)
+	*/
+	ent.pact = function(par,act,pack,done){ // entity action
+		done = uni.done(done);
+		if (uni.type(par) !== 'str') return done.fail('ent: parent is not a string');
+		if (uni.type(act) !== 'str') return done.fail('ent: act is not a string');
+		if (uni._mold[par] === undefined) return done.fail('ent: mold '+ent.mold+' not defined');
+		var m = uni._mold[par];
+		if (m._act && m._act[act]) return m._act[act].apply(ent,[pack,done]); // do action, pass in the ent as this
+		return done.fail('ent: mold '+ent.mold+' parent '+par+' action '+act+' not defined');
+	};	
 
+	/*
+	watch (fun):
+		watcher (obj): uni ent
+		signal (str): name of the event to watch for
+		react (fun): function to call when event is triggered
+			d (any): data passed through
+	*/
+	ent._watchers = {};
+	ent.watch = function(watcher,signal,react){
+		if (!watcher || !watcher.fingerprint) return uni.fail('ent.watch: no watcher or fingerprint defined');
+		ent._watchers[signal] = ent._watchers[signal] || {};
+		ent._watchers[signal][watcher.fingerprint] = react;
 	};
 
 	return ent;
@@ -451,23 +255,37 @@ var me = uni.mold = function(type){
 	uni._mold = uni._mold || {};
 	var mold = {};
 	uni._mold[type] = mold;
-	mold.act = {};
+	mold._act = {};
+	mold.act = function(action,func){
+		mold._act[action] = func;
+	};
+
+	//TODO: no way to inherit private functions
 	mold.inherit = function(t){
 		//inherit actions
 		if (!uni._mold[t]) return uni.fail('inherit: no mold found for:',t);
-		for (var i in uni._mold[t].act){
-			mold.act[i] = uni._mold[t].act[i];
+
+		mold._parents = mold._parents || [];
+		mold._parents.unshift(uni._mold[t]);
+		/*
+		for (var i in uni._mold[t]._act){
+			mold._act[i] = uni._mold[t]._act[i];
 		}
+		*/
 	};
-	mold.trigger = function(ent,event,pack){
+	mold.signal = function(ent,signal,d){
 		//call callbacks bound to this ent
+		if (!ent._watchers || !ent._watchers[signal]) return;
+		for (var i in ent._watchers[signal]){
+			ent._watchers[signal][i](d);
+		}
 	};
 	return mold;
 };
 })();
 (function(){
 var me = {};
-uni.world = function(){
+uni.world = me.world = function(){
 	var world = {};
 	uni.ent.fill(world);
 	return world;
