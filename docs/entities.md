@@ -22,7 +22,9 @@ The first entity `e1` is defined as being from the mold `meep`. It has no signat
 ### Return
  - `ent` (obj): The ent object contains all properties and methods attached to the entity.
 
-## PROPERTIES
+## ENT
+
+### Properties
 
 These are properties that are defined on the ent object:
 
@@ -31,17 +33,17 @@ These are properties that are defined on the ent object:
 - `fingerprint` (str): The mold/signature combination that defines this ent
 - `world` (obj): A circular reference to the world that the entity is a part of.
 
-## METHODS
+### Methods
 
 These are the methods of the ent object:
 
 - `act` (fun): Calls an action defined by the mold of the ent.
 - `watch` (fun): Allows another entity or script to bind to the signals emitted by this entity.
 
-## MOLD
+### Mold
 
 Define entity actions inside of molds. To learn how to define a mold, read [molds](molds.md).
 
-## ACTIONS
+### Actions
 
 Each ent has a set of actions defined by its mold. To learn how to define and use actions, check out [actions](actions.md).
