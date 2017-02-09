@@ -27,7 +27,7 @@ To bring Uni into your project, simply copy the file [uni.js](dist/uni.js), past
 
 The concepts of uni:
 - [worlds](docs/worlds.md): A world is a container that encapsulates data for an application or part of an application. Data structures (ents) are bound inside a world and can easily talk to and exchange information with ents in the same world.
-- [entities](docs/ents.md) (or ents): Ents are the data structures of Uni. Each ent has a unique identity, data scope, and actions which are defined by its mold.
+- [entities](docs/entities.md) (or ents): Ents are the data structures of Uni. Each ent has a unique identity, data scope, and actions which are defined by its mold.
 - [molds](docs/molds.md): Molds define the actions that ents can perform. Each ent takes on the actions of one mold.
 - [actions](docs/actions.md) (or acts): Ents perform actions to do get things done. They are the primary functionality in Uni.
 - [signals](docs/signals.md): Signals are events triggered by the ent - other ents can watch for signals.

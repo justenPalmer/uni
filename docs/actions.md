@@ -40,4 +40,4 @@ All actions should respond to their caller with either a pass or fail. Each acti
 
 ### This (entity)
 
-The `this` object within an action function is the entity calling the action. The ent will data properties and methods. It will also contain a reference to the world the entity is inside of. For more info, check out [ents](ents.md).
+The `this` object within an action function is the entity calling the action. The ent will data properties and methods. It will also contain a reference to the world the entity is inside of. For more info, check out [entities](entities.md).
