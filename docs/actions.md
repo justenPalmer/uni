@@ -21,22 +21,22 @@ mold.act('say',function(pack,done){
 
 ## ACT ARGUMENTS
 
-- `name` *(str)*: A string which acts as a handle to call the action. Action names should be unique within a mold.
-- `func` *(fun)*: The function that will be executed when the action is called. This function defines all the functionality of the action. It has two arguments defined below.
+- `name` (str): A string which acts as a handle to call the action. Action names should be unique within a mold.
+- `func` (fun): The function that will be executed when the action is called. This function defines all the functionality of the action. It has two arguments defined below.
 
 ## FUNC ARGUMENTS
 
 The func defines the working functionality of the action. All action functions will have two arguments defined.
 
-- `pack` *(any)*: The pack is the data input for the action. Any data to be passed into the action shoud be placed inside the pack. In the case where there is only one data value to be passed, pack may be that data value and take on any type. If there are more data values, pack may be defined as an object containing all the data values.
-- `done` *(obj)*: The done object contains two functions, done and fail. One of these should be called when the function is complete.
+- `pack` (any): The pack is the data input for the action. Any data to be passed into the action shoud be placed inside the pack. In the case where there is only one data value to be passed, pack may be that data value and take on any type. If there are more data values, pack may be defined as an object containing all the data values.
+- `done` (obj): The done object contains two functions, done and fail. One of these should be called when the function is complete.
 
 ## FUNC DONE
 
 All actions should respond to their caller with either a pass or fail. Each action call should result in only one done function being called.
 
-- `pass` *(fun)*: The pass function should be called when the action completes successfully. It takes one argument which should be the return value of the action.
-- `fail` *(fun)*: The fail function should be called when the action encounters an error while processing the action. Likely causes of failure are invalid or missing input values, improper entity state, API errors, and DOM related issues.
+- `pass` (fun): The pass function should be called when the action completes successfully. It takes one argument which should be the return value of the action.
+- `fail` (fun): The fail function should be called when the action encounters an error while processing the action. Likely causes of failure are invalid or missing input values, improper entity state, API errors, and DOM related issues.
 
 ### FUNC THIS (ENT)
 
