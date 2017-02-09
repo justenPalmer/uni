@@ -15,11 +15,11 @@ var e2 = world.ent('meep',1); // gets the ent with signature 1 and fingerprint '
 
 The first entity `e1` is defined as being from the mold `meep`. It has no signature. The second entity `e2` is also from the mold `meep`, but has a signature of `1` thus making it a different entity from `e1`.
 
-### parameters
+### Parameters
 - `mold` (str): The mold defines the type of entity to create. When instantiated, the entity is associated with the mold of the same name. Then actions performed by that entity will be defined by the named mold.
 - `signature` (num or str): Identifier for this ent, only one ent may exist for each mold/signature combination. Use the signature to create multiple unique entities from a single mold.
 
-### return
+### Return
  - `ent` (obj): The ent object contains all properties and methods attached to the entity.
 
 ## PROPERTIES
