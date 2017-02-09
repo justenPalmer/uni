@@ -1,6 +1,6 @@
 # uni
 
-Uni is a library which provides a scaffold for data structure on which light or enterprise-grade applications may be constructed. The advantages of using Uni are defined below:
+Uni is a library which provides a scaffold on which light or enterprise-grade applications may be constructed. The advantages of using Uni are defined below:
 
 - Code organization - Uni allows for a smart separation of responsibilities in code. Chunks of code are defined in molds and are designed to be modular.
 - Flexibility - Uni does not enforce any model/view/controller pattern and leaves it up to the coder on which application structure to adopt.
