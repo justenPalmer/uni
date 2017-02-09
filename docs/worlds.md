@@ -4,7 +4,7 @@ Worlds are the container for ents (entities). They are the context in which all 
 
 ## MAKE
 
-``` javascript
+```javascript
 
 var world = uni.world();
 

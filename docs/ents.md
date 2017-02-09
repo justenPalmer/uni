@@ -4,7 +4,7 @@ Entities (or ents) are instances of molds with properties and methods. Think abo
 
 ## GET
 
-To get an entity, there must be a [mold](docs/molds.md) defined as well as a [world](docs/worlds.md) initialized. Get entities with the following code:
+To get an entity, there must be a [mold](molds.md) defined as well as a [world](worlds.md) initialized. Get entities with the following code:
 
 ``` javascript
 
@@ -40,8 +40,8 @@ These are the methods of the ent object:
 
 ## MOLD
 
-Define entity actions inside of molds. To learn how to define a mold, read [molds](docs/molds.md).
+Define entity actions inside of molds. To learn how to define a mold, read [molds](molds.md).
 
 ## ACTIONS
 
-Each ent has a set of actions defined by its mold. To learn how to define and use actions, check out [actions](docs/actions.md).
+Each ent has a set of actions defined by its mold. To learn how to define and use actions, check out [actions](actions.md).

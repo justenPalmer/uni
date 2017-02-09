@@ -1,12 +1,12 @@
 # uni actions (acts)
 
-Actions are defined by [molds](docs/molds.md) and performed by [entities](docs/entities.md). All public functionality on entities are actions. Actions have a standard signature which makes their definition and use trivial.
+Actions are defined by [molds](molds.md) and performed by [entities](entities.md). All public functionality on entities are actions. Actions have a standard signature which makes their definition and use trivial.
 
 Actions are similar to public methods in OOP languages.
 
 ## DEFINE
 
-Define an action on a mold. To define an action, a mold must first be defined. Learn how to define molds [here](docs/molds.md). An example of an action definition is below:
+Define an action on a mold. To define an action, a mold must first be defined. Learn how to define molds [here](molds.md). An example of an action definition is below:
 
 ``` javascript
 
@@ -40,4 +40,4 @@ All actions should respond to their caller with either a pass or fail. Each acti
 
 ### This (entity)
 
-The `this` object within an action function is the entity calling the action. The ent will data properties and methods. It will also contain a reference to the world the entity is inside of. For more info, check out [ents](docs/ents.md).
+The `this` object within an action function is the entity calling the action. The ent will data properties and methods. It will also contain a reference to the world the entity is inside of. For more info, check out [ents](ents.md).
