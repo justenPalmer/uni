@@ -42,10 +42,6 @@ These are the methods of the ent object:
 - `act` (fun): Calls an action defined by the mold of the ent.
 - `watch` (fun): Allows another entity or script to bind to the signals emitted by this entity.
 
-### Mold
-
-Define entity actions inside of molds. To learn how to define a mold, read [molds](molds.md).
-
 ### Actions
 
-Each ent has a set of actions defined by its mold. To learn how to define and use actions, check out [actions](actions.md).
+Each ent has a set of actions defined by its mold. To learn how to define and use actions, check out [molds](molds.md) and [actions](actions.md).
