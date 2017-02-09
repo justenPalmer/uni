@@ -6,14 +6,14 @@ Chains are Uni's way of handling asynchronous functions. They are much more comp
 
 ```javascript
 
-var ary = [1,2,3];
 uni.ch(function(d,ch){
-	console.log('1');
-	ch.pass();
+	console.log('first');
+	ch.pass('first is done');
 }).ch(function(d,ch){
-	console.log('2');
+	console.log(d,' now on second');
+	ch.fail('testing a fail');
 }).fail(function(d,ch){
-	console.log('failed');
+	console.log('failed:',d);
 });
 
 ```
