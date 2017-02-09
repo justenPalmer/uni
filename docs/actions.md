@@ -22,11 +22,11 @@ mold.act('say',function(pack,done){
 ### Arguments
 
 - `name` (str): A string which acts as a handle to call the action. Action names should be unique within a mold.
-- `func` (fun): The function that will be executed when the action is called. This function defines all the functionality of the action. It has two arguments defined below.
+- `function` (fun): The function that will be executed when the action is called. This function defines all the functionality of the action. It has two arguments defined below.
 
-## FUNC
+## FUNCTION
 
-The func defines the working functionality of the action. All action functions will have two arguments defined.
+The function defines the working functionality of the action. All action functions will have two arguments defined.
 
 - `pack` (any): The pack is the data input for the action. Any data to be passed into the action shoud be placed inside the pack. In the case where there is only one data value to be passed, pack may be that data value and take on any type. If there are more data values, pack may be defined as an object containing all the data values.
 - `done` (obj): The done object contains two functions, done and fail. One of these should be called when the function is complete.
