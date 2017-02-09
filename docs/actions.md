@@ -1,6 +1,6 @@
 # uni actions (acts)
 
-Actions are defined by molds and performed by entities. All public functionality on entities are actions. Actions have a standard signature which makes their definition and use trivial.
+Actions are defined by [molds](docs/molds.md) and performed by [entities](docs/entities.md). All public functionality on entities are actions. Actions have a standard signature which makes their definition and use trivial.
 
 Actions are similar to public methods in OOP languages.
 
@@ -38,6 +38,6 @@ All actions should respond to their caller with either a pass or fail. Each acti
 - `pass` (fun): The pass function should be called when the action completes successfully. It takes one argument which should be the return value of the action.
 - `fail` (fun): The fail function should be called when the action encounters an error while processing the action. Likely causes of failure are invalid or missing input values, improper entity state, API errors, and DOM related issues.
 
-### This (ent)
+### This (entity)
 
-The `this` object within an action func is the ent calling the action. The ent will have all data properties attached to it. It will also contain a reference to the world the ent is inside of. For more info, check out [ents](docs/ents.md).
+The `this` object within an action function is the entity calling the action. The ent will data properties and methods. It will also contain a reference to the world the entity is inside of. For more info, check out [ents](docs/ents.md).
