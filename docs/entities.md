@@ -24,6 +24,8 @@ The first entity `e1` is defined as being from the mold `meep`. It has no signat
 
 ## ENT
 
+Ents contain properties and methods which define its behaviors withn the world.
+
 ### Properties
 
 These are properties that are defined on the ent object:
