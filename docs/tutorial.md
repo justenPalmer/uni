@@ -4,25 +4,25 @@
 
 First create a new directory for your new project.
 
-'''
+```
 mkdir helloWorld
-'''
+```
 
 Then, bring in Uni.
 
-'''
+```
 //scp command for bringing in Uni
-'''
+```
 
 Create an index.html file.
 
-'''
+```
 mkdir helloWorld
-'''
+```
 
 Then, paste in the following html boilerplate:
 
-''' html
+```html
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,6 +33,7 @@ Then, paste in the following html boilerplate:
 		<script src="uni.js" type="text/javascript"></script>
 	</body>
 </html>
-'''
+```
 
-## 
+## MAKING THE WORLD
+
