@@ -28,7 +28,7 @@ ent.watch(this, 'jump', function(data, done){
 
 ## SIGNAL
 
-Send a signal to watching entities:
+Signals are send from inside an action, using the mold. Send a signal to watching entities:
 
 ``` javascript
 
