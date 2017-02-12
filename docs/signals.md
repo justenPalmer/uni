@@ -1,6 +1,6 @@
 # uni signals
 
-Signals are Uni's way of broadcasting and catching events. Entities watch for signals from other entities. Signals may broadcast by entities when they perform actions.
+Signals are Uni's way of broadcasting and catching events. Entities watch for signals from other entities. Signals may be broadcast by entities when they perform actions.
 
 ## WATCH
 
