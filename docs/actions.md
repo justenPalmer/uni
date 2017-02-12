@@ -10,10 +10,12 @@ Define an action on a mold. To define an action, a mold must first be defined. L
 
 ``` javascript
 
+var mold = uni.mold('meep');
 mold.act('say',function(pack,done){
 	var ent = this;
-	var msg = new SpeechSynthesisUtterance(pack);
-	window.speechSynthesis.speak(msg);
+	/*
+	Code for say action
+	*/
 	return done.pass(msg);
 });
 
