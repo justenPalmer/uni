@@ -24,7 +24,8 @@ var me = uni.mold = function(type){
 		//call callbacks bound to this ent
 		if (!ent._watchers || !ent._watchers[signal]) return;
 		for (var i in ent._watchers[signal]){
-			ent._watchers[signal][i](d);
+			var done = uni.done();
+			ent._watchers[signal][i](d,done);
 		}
 	};
 	return mold;

@@ -61,7 +61,8 @@ var entGet = function(world,mold,signature){
 		watcher (obj): uni ent
 		signal (str): name of the event to watch for
 		react (fun): function to call when event is triggered
-			d (any): data passed through
+			data (any): data passed through
+			done
 	*/
 	ent._watchers = {};
 	ent.watch = function(watcher,signal,react){

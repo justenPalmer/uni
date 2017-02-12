@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Uni Basic</title>
+	   	<meta name="title" content="Uni Basic">
+	   	<meta name="description" content="">
+	   	<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<link rel="stylesheet" href="css/fields.css">
+	   	<style>
+	   		*{padding: 0; margin: 0}
+	   		#views{display:none;}
+	   	</style>
+	</head>
+	<body>
+		<div id="views">
+			<div view="basic">
+				<div class="modal-body form-horizontal overflowHidden">
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Name</label>
+						<div area="lastName" class="col-sm-4 field">
+							<input name="lastName" type="text" class="form-control" placeholder="Last name" autocomplete="off"/>
+						</div>
+						<div area="firstName" class="col-sm-3 field">
+							<input name="firstName" type="text" class="form-control" placeholder="First name" autocomplete="off"/>
+						</div>
+						<div area="middleName" class="col-sm-2 field">
+							<input name="middleName" type="text" class="form-control" placeholder="Middle name" autocomplete="off"/>
+						</div>
+						<div area="suffix" class="col-sm-1 field">
+							<input name="suffix" type="text" class="form-control" placeholder="Suffix" autocomplete="off"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Date of birth</label>
+						<div area="dob" class="col-sm-4 field">
+							<input name="dob" type="text" class="form-control" placeholder="YYYY-MM-DD" autocomplete="off"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Sex</label>
+						<div area="sex" class="col-sm-4 field">
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Address</label>
+						<div area="address" class="col-sm-10 field">
+							<input name="address" type="text" class="form-control" placeholder="123 Street" autocomplete="off"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<div area="city" class="col-sm-4 col-sm-offset-2 field">
+							<input name="city" type="text" class="form-control" placeholder="City" autocomplete="off"/>
+						</div>
+						<div area="state" class="col-sm-3 field">
+						</div>
+						<div area="zip" class="col-sm-3 field">
+							<input name="zip" type="text" class="form-control" placeholder="Zip" autocomplete="off"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Phone</label>
+						<div area="phoneHome" class="col-sm-4 field">
+							<input name="phoneHome" type="text" class="form-control" placeholder="Home" autocomplete="off"/>
+						</div>
+						<div area="phoneWork" class="col-sm-3 field">
+							<input name="phoneWork" type="text" class="form-control" placeholder="Work" autocomplete="off"/>
+						</div>
+						<div area="phoneMobile" class="col-sm-3 field">
+							<input name="phoneMobile" type="text" class="form-control" placeholder="Mobile" autocomplete="off"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Social Security</label>
+						<div area="socialSecurity" class="col-sm-4 field">
+							<input name="ssn" type="text" class="form-control" placeholder="555-55-5555" autocomplete="off"/>
+						</div>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-2 control-label">Email</label>
+						<div area="email" class="col-sm-4 field">
+							<input name="email" type="email" class="form-control" placeholder="email@domain.com" autocomplete="off"/>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button btn="add" type="button" class="btn btn-default">Add</button>
+				</div>
+			</div>
+		</div>
+		<script src="vendor/jquery.js"></script>
+		<script src="vendor/jquery.focusable.js"></script>
+		<script src="../../dist/uni.js" type="text/javascript"></script>
+
+		<script src="field/field.js" type="text/javascript"></script>
+		<script src="field/field.input.js" type="text/javascript"></script>
+		<script src="field/field.input.date.js" type="text/javascript"></script>
+		<script src="field/field.input.email.js" type="text/javascript"></script>
+		<script src="field/field.input.phone.js" type="text/javascript"></script>
+		<script src="field/field.input.socialSecurity.js" type="text/javascript"></script>
+		<script src="field/field.select.js" type="text/javascript"></script>
+		<script src="field/field.select.button.js" type="text/javascript"></script>
+		<script src="field/field.select.state.js" type="text/javascript"></script>
+
+		<script src="views/view.js" type="text/javascript"></script>
+		<script src="views/view.basic.js" type="text/javascript"></script>
+
+		<script src="index.js" type="text/javascript"></script>
+	</body>
+</html>

@@ -9,7 +9,8 @@ Uni is a library which provides a scaffold on which light or enterprise-grade ap
 - Unified method signatures - No more looking up method definitions and rewriting them. All methods (actions) in Uni have the exact same signature.
 - No prototype chains - Uni speeds up applications by not utilizing prototype chains that are costly for property lookups.
 - No complex language - Uni uses only basic javascript syntax; allowing beginners to jump in and veterans to reduce cognitive load.
-- Tiny and transparent - Uni is less than 200 lines of code. It does not burden your application with unnecessary weight and should be easy for an intermediate coder to read and fully understand.
+- Tiny and transparent - Uni is less than 300 lines of code with comments. It does not burden your application with unnecessary weight and should be easy for an intermediate coder to read and understand.
+- Immutable classes - All classes (molds) in Uni are unchangable at runtime. This makes behaviors of objects predictable and stable.
 
 ## OBJECTIVES
 

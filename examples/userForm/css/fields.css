@@ -1,0 +1,7 @@
+.row .field{position:relative;padding:0 13px 0 0;}
+.row .field input{padding-right:28px;}
+.field.error input,.field.error select{border:1px solid #d9534f;}
+.field.error button{border:1px solid #d9534f;}
+.field.error i{position:absolute;top:11px;right:24px;color:#d43f3a;cursor:pointer;}
+.field.error .errorDescription{position:absolute;right:13px;top:28px;text-align:left;color:#fff;background-color:#d43f3a;padding:3px 11px;z-index:1051;
+	border-radius:4px 0 4px 4px;font-size:11px;}
