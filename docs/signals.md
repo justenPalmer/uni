@@ -33,7 +33,6 @@ Send a signal to watching entities:
 ``` javascript
 
 var mold = uni.mold('meep');
-
 mold.act('jump',function(pack,done){
 	/*
 	code for jumping
