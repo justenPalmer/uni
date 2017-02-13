@@ -21,7 +21,7 @@ The objective of Uni is to be easy to learn with concepts that can be taught to 
 To bring Uni into your project, simply copy the file [uni.js](dist/uni.js), paste it into your project, and include the script into the body of your html file.
 
 ``` html
-	<script src="uni.js" type="text/javascript"></script>
+<script src="uni.js" type="text/javascript"></script>
 ```
 
 ## CONCEPTS
