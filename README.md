@@ -4,7 +4,7 @@ Uni is a library which provides a scaffold on which light or enterprise-grade ap
 
 - Code organization - Uni allows for a smart separation of responsibilities in code. Chunks of code are defined in molds and are designed to be modular.
 - Flexibility - Uni does not enforce any model/view/controller pattern and leaves it up to the coder on which application structure to adopt.
-- Data scope - All data within Uni lives inside a world. Within a world data is easily shared and communication flows easily between objects (entities). If a world is destroyed, all data goes with it; therefore the global scope does not get polluted.
+- Data scope - All data within Uni lives inside a world. Within a world data is easily shared and communication flows easily between objects (entities). If a world is destroyed, all data goes with it; the global scope does not get polluted.
 - Single dispatch - All method calls go through a single point, making tracking flow of code trivial.
 - Unified method signatures - No more looking up method definitions and rewriting them. All methods (actions) in Uni have the exact same signature.
 - No complex language - Uni uses only basic javascript syntax; allowing beginners to jump in and veterans to reduce cognitive load.
