@@ -6,8 +6,6 @@ var me = uni.mold = function(type){
 	mold.act = function(action,func){
 		mold._act[action] = func;
 	};
-
-	//TODO: no way to inherit private functions
 	mold.inherit = function(t){
 		//inherit actions
 		if (!uni._mold[t]) return uni.fail('inherit: no mold found for:',t);
