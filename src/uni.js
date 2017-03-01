@@ -130,7 +130,7 @@ uni.loop = function(o,loop,done,a){
 				prop:prop,
 				next:function(){
 					a.i = nextI;
-					me.loop(o,loop,done,a);
+					uni.loop(o,loop,done,a);
 				}
 			});
 			return;

@@ -136,7 +136,7 @@ uni.loop = function(o,loop,done,a){
 				prop:prop,
 				next:function(){
 					a.i = nextI;
-					me.loop(o,loop,done,a);
+					uni.loop(o,loop,done,a);
 				}
 			});
 			return;
@@ -229,7 +229,8 @@ var entGet = function(world,mold,signature){
 		watcher (obj): uni ent
 		signal (str): name of the event to watch for
 		react (fun): function to call when event is triggered
-			d (any): data passed through
+			data (any): data passed through
+			done
 	*/
 	ent._watchers = {};
 	ent.watch = function(watcher,signal,react){
@@ -259,8 +260,6 @@ var me = uni.mold = function(type){
 	mold.act = function(action,func){
 		mold._act[action] = func;
 	};
-
-	//TODO: no way to inherit private functions
 	mold.inherit = function(t){
 		//inherit actions
 		if (!uni._mold[t]) return uni.fail('inherit: no mold found for:',t);
@@ -277,7 +276,8 @@ var me = uni.mold = function(type){
 		//call callbacks bound to this ent
 		if (!ent._watchers || !ent._watchers[signal]) return;
 		for (var i in ent._watchers[signal]){
-			ent._watchers[signal][i](d);
+			var done = uni.done();
+			ent._watchers[signal][i](d,done);
 		}
 	};
 	return mold;
