@@ -80,7 +80,7 @@ Paste in the following html boilerplate (press 'i' for insert):
 
 ```
 
-## TLDR
+## ALL TOGETHER
 
 ```html
 
